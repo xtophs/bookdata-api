@@ -3,14 +3,15 @@ FROM golang:1.14.2-alpine
 ENV GOPATH=/go
 ENV GO111MODULE=on
 
-# Install git.
-# Git is required for fetching the dependencies.
-RUN apk update && apk add --no-cache git
+# Install git - required for vscode & go get
+# Install dependencies for debugging (gcc/g++/libc6-compat)
+# Install docker cli for building the container
+RUN apk update && apk add --no-cache \
+    git \
+    gcc g++ libc6-compat \
+    docker-cli
 
-# Add dependencies for debugging
-RUN apk update && apk add --no-cache gcc g++
-
-## Install Golang analysis tools 
+## Install Golang analysis tools
 RUN go get -v golang.org/x/tools/gopls@latest && \
     go get -v github.com/go-delve/delve/cmd/dlv@latest && \
     go get -v golang.org/x/lint/golint@latest && \
