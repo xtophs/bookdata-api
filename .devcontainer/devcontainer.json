@@ -4,8 +4,7 @@
     "mounts": ["source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"],
     "extensions": [
         "ms-vscode.go",
-        "ms-azuretools.vscode-docker",
-        "ms-vsliveshare.vsliveshare"
+        "ms-azuretools.vscode-docker"
     ],
     "appPort": 8080,
     "runArgs": [
