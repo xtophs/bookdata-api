@@ -9,10 +9,15 @@ import (
 func getAllBooks(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	limit, err := getLimitParam(r)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(`{"error": "invalid datatype for parameter limit"}`))
+		return
+	}
 	skip, err := getSkipParam(r)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(`{"error": "invalid datatype for parameter"}`))
+		w.Write([]byte(`{"error": "invalid datatype for parameter skip"}`))
 		return
 	}
 	data := books.GetAllBooks(limit, skip)
